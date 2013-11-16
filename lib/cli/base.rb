@@ -17,7 +17,6 @@ module Cli
 
     desc "all", "Display all lists"
     def all
-
       task_lists = client.tasks.find_all { |t| t.completed_at.nil? }
                                .group_by { |t| t.list_id }
 
@@ -25,14 +24,14 @@ module Cli
     end
 
     desc "add TODO", "Add a new todo"
+    option :list, :type => :string, :aliases => :l, :default => 'inbox'
     def add(todo = nil)
-      unless todo
-        todo    = ask("What to do?")
-        list_id = ask_for_list
-      else
-        list_id = 'inbox'
-      end
-      max_position = client.tasks.find_all{|l| l.list_id == list_id && !l.completed_at.nil? }.sort_by{ |t| t.position }[0]
+      todo    = ask("What to do?") unless todo
+      list_id = options[:list]
+
+      max_position = client.tasks.find_all{ |t| t.list_id == list_id }
+                                 .sort_by { |t| t.position }[0]
+
       client.tasks.create(title: todo, list_id: list_id, position: max_position.position-0.1)
     end
 
