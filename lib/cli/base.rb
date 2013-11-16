@@ -3,6 +3,7 @@ module Cli
     include Thor::Actions
     include Client
     include Lists
+    include Ui
 
     default_task :all
 
