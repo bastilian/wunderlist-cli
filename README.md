@@ -1,24 +1,58 @@
-# Wunderlist::Cli
+# Wunderlist Command-line Interface
 
-TODO: Write a gem description
+A command-line interface for commandline users and Wunderlist-lovers
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-    gem 'wunderlist-cli'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install wunderlist-cli
+```shell
+$ gem install wunderlist-cli
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+### Setup your credentials
+
+```shell
+$ wunderlist setup # Enter your login. (It will be saved under ~/.wunderlist)
+```
+### Show all lists and tasks
+
+```shell
+$ wunderlist
+```
+
+### Show all lists with ids
+
+```shell
+$ wunderlist all_lists
+```
+
+### Show tasks in specific list
+
+```shell
+$ wunderlist -l LIST_ID
+```
+### Add a task to the Inbox
+
+```shell
+$ wunderlist add "Test wunderlist-cli"
+```
+### Add a task to a specific list
+
+```shell
+$ wunderlist add "Test adding to a list" -l LIST_ID
+```
+
+### Complete a task
+
+```shell
+$ wunderlist complete TASK_ID
+```
+### Delete a task
+
+```shell
+$ wunderlist delete TASK_ID
+```
 
 ## Contributing
 
