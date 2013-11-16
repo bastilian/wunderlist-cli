@@ -32,7 +32,8 @@ module Cli
       else
         list_id = 'inbox'
       end
-      client.tasks.create(title: todo, list_id: list_id, position: 0)
+      max_position = client.tasks.find_all{|l| l.list_id == list_id && !l.completed_at.nil? }.sort_by{ |t| t.position }[0]
+      client.tasks.create(title: todo, list_id: list_id, position: max_position.position-0.1)
     end
 
     desc "complete TODO_ID", "Complete a todo"
