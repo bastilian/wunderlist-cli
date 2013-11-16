@@ -16,15 +16,21 @@ module Cli
     end
 
     desc "all", "Display all lists"
+    option :list, :type => :string, :aliases => :l,
+           :banner => "Only show tasks of a specific list"
     def all
       task_lists = client.tasks.find_all { |t| t.completed_at.nil? }
-                               .group_by { |t| t.list_id }
 
-      show_list_list(task_lists)
+      if options[:list]
+        task_lists = task_lists.find_all { |t| t.list_id == options[:list] }
+      end
+
+      show_list_list(task_lists.group_by { |t| t.list_id })
     end
 
     desc "add TODO", "Add a new todo"
-    option :list, :type => :string, :aliases => :l, :default => 'inbox'
+    option :list, :type => :string, :aliases => :l, :default => 'inbox',
+           :banner  => "Provide a LIST_ID to add the todo to"
     def add(todo = nil)
       todo    = ask("What to do?") unless todo
       list_id = options[:list]

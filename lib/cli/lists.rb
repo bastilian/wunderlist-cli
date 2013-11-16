@@ -54,8 +54,10 @@ module Cli
 
     def inbox_first(tasks_list)
       inbox = tasks_list.find{ |l, t| l == 'inbox' }
-      show_task_list(inbox[0], inbox[1])
-      tasks_list.delete_if{|l, t| l == 'inbox' }
+      if inbox
+        show_task_list(inbox[0], inbox[1])
+        tasks_list.delete_if{|l, t| l == 'inbox' }
+      end
 
       tasks_list
     end
