@@ -48,5 +48,10 @@ module Cli
       task.destroy
     end
 
+    desc "all_lists", "Show all lists"
+    def all_lists
+      lists_list
+    end
+
   end
 end

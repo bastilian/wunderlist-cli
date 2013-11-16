@@ -12,11 +12,7 @@ module Cli
     end
 
     def ask_for_list
-      puts "1. Inbox"
-     
-      lists.each_with_index do |list, idx| 
-        puts "#{idx+2}. #{list.title}"
-      end
+      lists_list
 
       list_index = ask("Add to list?")
 
@@ -24,6 +20,14 @@ module Cli
         'inbox'
       else
         lists[list_index.to_i-2]
+      end
+    end
+
+    def lists_list
+      puts "1. Inbox"
+
+      lists.each_with_index do |list, idx| 
+        puts "#{idx+2}. #{list.title} (ID: #{list.id})"
       end
     end
 
